@@ -108,7 +108,7 @@ class FeatureImportance():
 
             # 15. Set all results for the excel output
             for x in self.cf['selected_Xs']:
-                self.excel[x].append(round(importance.ix[x][0], 4))
+                self.excel[x].append(round(importance.iloc[:, x][0], 4))
 
             self.excel['Data'].append(self.cf['base_name'])
             self.excel['Train Size'].append(len(X_train))

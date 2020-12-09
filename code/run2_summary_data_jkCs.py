@@ -19,8 +19,8 @@ class JKCsSummary():
             if 'pH' in file:
                 continue
 
-            # 1. Loads data from xlsx
-            self.excel_data = pd.read_excel(path+'/'+file, 'Sheet1')
+            # Loads data from xlsx
+            self.excel_data = pd.read_excel(path + '/' + file, 'Sheet1')
 
             # Takes a experiment list
             experiments = self.excel_data['Experiment'].unique()
@@ -36,20 +36,6 @@ class JKCsSummary():
 
         # Saves all results as one file
         df_vertical_stack.to_excel(f"../data_output/summary_{self.time}.xlsx")
-
-
-configures = [
-              {'input_file': '../data/data_free_chlorine.xlsx',
-              'output_file': 'data_free_chlorine_jkCs',
-              'sheets':['Free Chlorine-Ductile', 'Free Chlorine-Copper', 'DO-Copper', 'DO-Ductile', 'pH-Ductile', 'pH-Copper' ]
-              },
-             {'input_file': '../data/data_monochloramine.xlsx',
-              'output_file': 'data_monochloramine_jkCs',
-              # 'sheets':['Monochloramine-Ductile', 'Monochloramine-Copper']
-              'sheets':['Monochloramine-Ductile', 'Monochloramine-Copper', 'DO-Copper', 'DO-Ductile', 'pH-Ductile', 'pH-Copper' ]
-              },
-             ]
-
 
 JKCsSummary().run()
 

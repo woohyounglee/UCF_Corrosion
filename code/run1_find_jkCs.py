@@ -75,7 +75,7 @@ class JKCsFinder():
     def find_slope(self, min, max, window):
         df_ranges = pd.DataFrame(columns=['r1', 'r2', 'x1', 'x2', 'r_square', 'slope', 'intercept'])
 
-        for s in range((max-min)):
+        for s in range((max - min)):
             r1 = min + s
             r2 = r1 + window
             if r2 > max:
@@ -84,7 +84,9 @@ class JKCsFinder():
             r_square, slope, intercept, x1, x2 = self.perform_ML(r1, r2)
             # print(f'[{r1, r2}]: {r_square, slope, intercept}')
 
-            df_ranges = df_ranges.append({'r1': r1, 'r2': r2, 'x1': x1, 'x2': x2, 'r_square': r_square, 'slope': math.fabs(slope), 'intercept':intercept}, ignore_index=True)
+            df_ranges = df_ranges.append(
+                {'r1': r1, 'r2': r2, 'x1': x1, 'x2': x2, 'r_square': r_square, 'slope': math.fabs(slope),
+                 'intercept': intercept}, ignore_index=True)
 
         # changed 10/9/2020
         # # Find the highest r square row
@@ -109,7 +111,8 @@ class JKCsFinder():
         df_list = []
         for ex in experiments:
             # Check Error
-            if self.cf['output_file'] == 'data_free_chlorine_jkCs' and self.cf['sheet'] == 'Free Chlorine-Ductile' and ex == 9:
+            if self.cf['output_file'] == 'data_free_chlorine_jkCs' and self.cf[
+                'sheet'] == 'Free Chlorine-Ductile' and ex == 9:
                 # winsound.Beep(1000, 440)
                 print('error')
 
@@ -119,7 +122,7 @@ class JKCsFinder():
             self.df_cur_ex = self.excel_data[(self.excel_data['Experiment'] == ex)]
 
             # Finds a slope of a high-scored R2 and slope
-            df_highest_r2= self.find_slope(-400, 0, 200) # 10/10/2020
+            df_highest_r2 = self.find_slope(-400, 0, 200)  # 10/10/2020
             # df_highest_r2 = self.find_slope(-400, 0, 140) # 10/7/2020
 
             r1 = df_highest_r2['r1'].values[0]
@@ -202,7 +205,6 @@ class JKCsFinder():
         # Saves all results as one file
         df_vertical_stack.to_excel(f"../data_jkCs/{self.cf['output_file']}_[{self.cf['sheet']}].xlsx")
 
-
     def run(self):
         sh = self.cf['sheet']
 
@@ -215,20 +217,17 @@ class JKCsFinder():
         elif ('pH' in sh):
             self.run_for_pH()
 
+
 configures = [
-                 # {'input_file': '../data/data_error.xlsx',
-                 # 'output_file': 'data_error_jkCs',
-                 # 'sheets':['Free Chlorine-Copper']
-                 # },
-                 {'input_file': '../data/data_free_chlorine.xlsx',
-                  'output_file': 'data_free_chlorine_jkCs',
-                  'sheets':['Free Chlorine-Ductile', 'Free Chlorine-Copper', 'DO-Copper', 'DO-Ductile', 'pH-Ductile', 'pH-Copper' ]
-                 },
-                 {'input_file': '../data/data_monochloramine.xlsx',
-                  'output_file': 'data_monochloramine_jkCs',
-                  'sheets':['Monochloramine-Ductile', 'Monochloramine-Copper', 'DO-Copper', 'DO-Ductile', 'pH-Ductile', 'pH-Copper' ]
-                  },
-             ]
+    {'input_file': '../data/data_free_chlorine.xlsx',
+     'output_file': 'data_free_chlorine_jkCs',
+     'sheets': ['Free Chlorine-Ductile', 'Free Chlorine-Copper', 'DO-Copper', 'DO-Ductile', 'pH-Ductile', 'pH-Copper']
+     },
+    {'input_file': '../data/data_monochloramine.xlsx',
+     'output_file': 'data_monochloramine_jkCs',
+     'sheets': ['Monochloramine-Ductile', 'Monochloramine-Copper', 'DO-Copper', 'DO-Ductile', 'pH-Ductile', 'pH-Copper']
+     },
+]
 
 for conf in configures:
     for sheet in conf['sheets']:
