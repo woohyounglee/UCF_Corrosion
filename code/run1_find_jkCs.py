@@ -15,10 +15,6 @@ class JKCsFinder():
         self.cf['output_file'] = output_file
         self.cf['sheet'] = sheet
 
-        self.cf['targets'] = ['OV', 'Oil_separation(%)']
-        self.cf['selected_Xs'] = ['Depth (µm)']
-        self.cf['distance'] = 'Depth (µm)'
-
         if 'Free Chlorine' in self.cf['sheet']:
             self.cf['difussion_coefficient'] = 0.0000144
         elif 'Monochloramine' in self.cf['sheet']:
