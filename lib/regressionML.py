@@ -12,7 +12,7 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
 from sklearn.metrics import mean_squared_error
 from sklearn.svm import SVR
-from lightgbm_sklearn import LightGBM
+# from lightgbm_sklearn import LightGBM
 # from deep_learning_regressor import DeepLearningRegressor
 # from gpflow_regressor import GPFLOWRegressor
 from ml import ML
